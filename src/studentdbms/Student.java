@@ -11,6 +11,7 @@ public class Student {
     private int tuitionBalance = 0;
     private static int costOfCourse = 600;
     private static int id = 1000;
+    private int payment;
 
 
     //TODO 3 - Constructor: Prompt user to enter student's name and year
@@ -22,10 +23,11 @@ public class Student {
         System.out.print("Enter student's lastname: ");
         this.lastname = scanner.nextLine();
 
-        System.out.print("1 - Junior\n2 - Senior\n3 - Intermediate\n4 - Professional\nEnter " +
+        System.out.print("\nACADEMIC GRADE LEVELS\n1 - Junior\n2 - Senior\n3 - Intermediate\n4 - Professional\nEnter " +
                 "student's grade level: ");
         this.gradeYear = scanner.nextLine();
         setStudentID();
+        optionsMenu();
     }
 
     //TODO 4 - Generate an ID
@@ -62,9 +64,9 @@ public class Student {
         viewBalance();
         System.out.print("Enter your payment amount: $");
         Scanner scanner = new Scanner(System.in);
-        int payment = scanner.nextInt();
+        this.payment = scanner.nextInt();
         tuitionBalance = tuitionBalance - payment;
-        System.out.println("Thanks for paying $" + payment + " of your tuition");
+        System.out.println("\nPAYMENT CONFIRMED: \nThanks for paying $" + payment + " of your total tuition");
         viewBalance();
     }
 
@@ -72,6 +74,29 @@ public class Student {
     public String toString(){
         return "\nSTUDENT INFO SUMMARY\nNAME: " + firstname + " " + lastname +
                 "\nGRADE LEVEL: " + gradeYear + "\nSTUDENT ID: " + studentID + "\nCOURSES ENROLLED: "  + courses +
-                "\nTUITION BALANCE: $" + tuitionBalance;
+                "\nPAYMENTS MADE: $" + payment + "\nTUITION BALANCE: $" + tuitionBalance;
+    }
+
+    //TODO 9 - Added feature/Options menu
+    public void optionsMenu(){
+        int option;
+        do {
+            System.out.print("\nOPTIONS MENU\n1 - Enroll\n2 - Pay Tuition\n3 - View Balance\n4 - " +
+                    "Show Status (or Register Next Student)\nEnter an OPTION from the Menu:");
+            Scanner scanner = new Scanner(System.in);
+            option = scanner.nextInt();
+            if (!(option <1) & !(option >4)){
+                switch (option){
+                    case 1: enroll();
+                        break;
+                    case 2: payTuition();
+                        break;
+                    case 3: viewBalance();
+                        break;
+                    case 4: break;
+                    default: System.out.println("Invalid Entry");
+                }
+            }
+        }while (option!= 4);
     }
 }
